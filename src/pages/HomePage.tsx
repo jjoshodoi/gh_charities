@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
+// import testPic from '../assets/testpic1.jpg';
 
 export default function HomePage() {
     return (
@@ -9,12 +11,17 @@ export default function HomePage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-cover bg-center h-[400px]" style={{ backgroundImage: "url('/hero.jpg')" }}>
+      <section className="relative bg-cover bg-center h-[400px]" style={{ backgroundImage:  `url(/assets/testpic1.jpg)` }}>
         <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center text-white text-center px-4">
           <h2 className="text-4xl font-bold">Connecting UK Ghana Charities for Greater Impact</h2>
           <p className="mt-2 text-lg">Support. Collaborate. Grow.</p>
           <div className="mt-4 space-x-4">
-            <button className="bg-[#2C6A4D] text-[#F6A800] px-4 py-2 rounded">Explore Directory</button>
+          <Link
+                to={`/charities`}
+                // className="inline-block bg-[#2C6A4D] text-[#F6A800] px-4 py-2 rounded"
+              >
+                <button className="bg-[#2C6A4D] text-[#F6A800] px-4 py-2 rounded">Explore Directory</button>
+              </Link>
             <button className="bg-[#D50032] text-white px-4 py-2 rounded">Donate Now</button>
           </div>
         </div>
