@@ -8,6 +8,15 @@ export default function HomePage() {
       {/* Header */}
       <header className="text-center py-6 border-b border-gray-200">
         <h1 className="text-3xl font-bold">UK Ghana Charities</h1>
+        <Link
+                to={`/admin`}
+              >
+                <button className="px-4 py-2 rounded">Admin</button>
+              </Link>
+
+              <Link to={`/charities/1/update`}>
+                <button className=" px-4 py-2 rounded">Charity Update Req</button>
+              </Link>
       </header>
 
       {/* Hero Section */}
