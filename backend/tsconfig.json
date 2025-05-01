@@ -1,0 +1,18 @@
+{
+	"extends": "../tsconfig.json",
+	"include": [
+		"package.json",
+		"tsconfig.json",
+		"src/**/*"
+	],
+	"exclude": [
+		"node_modules",
+		"dist",
+		"test",
+		"**/*spec.ts"
+	],
+	"compilerOptions": {
+		"outDir": "./build",
+		"baseUrl": "./"
+	}
+}
