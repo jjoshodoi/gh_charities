@@ -1,15 +1,16 @@
-import {ApiHideProperty, ApiProperty, ApiPropertyOptional, PickType} from "@nestjs/swagger";
-import {Entity, OneToMany} from "typeorm";
-import {UserType} from "../../enums/user.enum";
-import {BaseDbEntity} from "../../tools/baseDb.entity";
+import {ApiHideProperty, PickType} from "@nestjs/swagger";
+import {Entity} from "typeorm";
+import {UserRole} from "../../enums/user.enum";
+
+import {Charity} from "../charity/charity";
+import {BaseDbEntity} from "../../common/entities/baseDb.entity";
 import {
     EntityColumn,
     EntityEnumColumn,
     EntityRelation,
     OptionalEntityColumn,
     RelationshipType
-} from "../../tools/entity.decorator";
-import {Charity} from "../charity/charity";
+} from "../../common/decorators/entity.decorator";
 
 
 @Entity('user')
@@ -35,13 +36,13 @@ export class User extends BaseDbEntity {
     password?: string
 
     @EntityEnumColumn({
-        db: {default: UserType.CONTACT, enum: UserType},
+        db: {default: UserRole.CONTACT, enum: UserRole},
     })
-    type!: UserType
+    role!: UserRole
 
     @EntityRelation({type: RelationshipType.MANY_TO_ONE, entity: () => Charity, joinOptions: {name: 'users'}})
     charity?: Charity;
 }
 
-export class CreateUserDTO extends PickType(User, ["firstName", "lastName", "userName", "email", "type", "charity"] as const) {
+export class CreateUserDTO extends PickType(User, ["firstName", "lastName", "userName", "email", "role", "charity"] as const) {
 }
