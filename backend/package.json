@@ -2,7 +2,8 @@
   "name": "@gh-charities/backend",
   "scripts": {
     "start": "nest start",
-    "build": "nest build"
+    "build": "nest build",
+    "gen:module": "npx ts-node scripts/generate-module.ts"
   },
   "dependencies": {
     "@casl/ability": "6.3.3",
