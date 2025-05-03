@@ -3,7 +3,7 @@
   "scripts": {
     "start": "nest start",
     "build": "nest build",
-    "gen:module": "npx ts-node scripts/generate-module.ts"
+    "gen:module": "npx ts-node scripts/generate-module-content.ts"
   },
   "dependencies": {
     "@casl/ability": "6.3.3",
