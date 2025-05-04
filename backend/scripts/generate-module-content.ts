@@ -2,12 +2,19 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as readline from 'readline';
 
+function toPascalCase(str: string): string {
+  return str
+      .split(/[_-]/)
+      .map(s => s.charAt(0).toUpperCase() + s.slice(1))
+      .join('');
+}
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
 
-rl.question('Enter entity name: ', (entity) => {
+rl.question('Enter entity name (e.g. user_profile): ', (entity) => {
   rl.close();
 
   if (!entity) {
@@ -15,7 +22,7 @@ rl.question('Enter entity name: ', (entity) => {
     process.exit(1);
   }
 
-  const className = entity.charAt(0).toUpperCase() + entity.slice(1);
+  const className = toPascalCase(entity);
   const basePath = path.resolve(__dirname, `../src/modules/${entity}`);
   const entityPath = path.join(basePath, `${entity}.ts`);
   const modulePath = path.join(basePath, `${entity}.module.ts`);

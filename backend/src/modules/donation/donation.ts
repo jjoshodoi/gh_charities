@@ -1,11 +1,12 @@
 import { Entity } from 'typeorm';
-import { BaseDbEntity } from '../../tools/baseDb.entity';
-import { EntityColumn, EntityRelation, OptionalEntityColumn, RelationshipType } from '../../tools/entity.decorator';
 import { Donor } from '../donor/donor';
 import { Charity } from '../charity/charity';
 import { Campaign } from '../campaign/campaign';
+import { PickType } from '@nestjs/swagger';
+import { EntityColumn, EntityRelation, RelationshipType } from '../../common/decorators/entity.decorator';
+import { BaseDbEntity } from '../../common/entities/baseDb.entity';
 
-@Entity()
+@Entity('donation')
 export class Donation extends BaseDbEntity {
     @EntityColumn({ db: { type: 'decimal' } })
     amount: number = 0;
@@ -37,3 +38,12 @@ export class Donation extends BaseDbEntity {
     })
     campaign?: Campaign;
 }
+
+export class CreateDonationDTO extends PickType(Donation, [
+    'amount',
+    'date',
+    'method',
+    'donor',
+    'charity',
+    'campaign'
+] as const) {}

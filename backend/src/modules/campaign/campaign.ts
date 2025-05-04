@@ -1,21 +1,27 @@
-import {Entity} from 'typeorm';
-import {EntityColumn, OptionalEntityColumn, EntityRelation, RelationshipType} from '../../tools/entity.decorator';
-import {BaseDbEntity} from "../../tools/baseDb.entity";
-import {Charity} from '../charity/charity';
-import {Donation} from '../donation/donation';
+import { Entity } from 'typeorm';
+import { BaseDbEntity } from '../../common/entities/baseDb.entity';
+import { Charity } from '../charity/charity';
+import { Donation } from '../donation/donation';
+import { PickType } from '@nestjs/swagger';
+import {
+    EntityColumn,
+    EntityRelation,
+    OptionalEntityColumn,
+    RelationshipType
+} from '../../common/decorators/entity.decorator';
 
-@Entity()
+@Entity('campaign')
 export class Campaign extends BaseDbEntity {
     @EntityColumn()
     title!: string;
 
-    @EntityColumn({db: {type: 'decimal'}})
+    @EntityColumn({ db: { type: 'decimal' } })
     goalAmount!: number;
 
-    @EntityColumn({db: {type: 'decimal', default: 0}})
+    @EntityColumn({ db: { type: 'decimal', default: 0 } })
     raisedAmount!: number;
 
-    @EntityColumn({db: {type: 'text'}})
+    @EntityColumn({ db: { type: 'text' } })
     description!: string;
 
     @EntityColumn()
@@ -27,7 +33,7 @@ export class Campaign extends BaseDbEntity {
     @EntityRelation({
         type: RelationshipType.MANY_TO_ONE,
         entity: () => Charity,
-        joinOptions: {name: 'charityId'},
+        joinOptions: { name: 'charityId' },
     })
     charity!: Charity;
 
@@ -38,3 +44,12 @@ export class Campaign extends BaseDbEntity {
     })
     donations: Donation[] = [];
 }
+
+export class CreateCampaignDTO extends PickType(Campaign, [
+    'title',
+    'goalAmount',
+    'description',
+    'startDate',
+    'endDate',
+    'charity'
+] as const) {}

@@ -1,9 +1,10 @@
+import { PickType } from '@nestjs/swagger';
 import { Entity } from 'typeorm';
-import { BaseDbEntity } from '../../tools/baseDb.entity';
-import { EntityColumn, OptionalEntityColumn, EntityRelation, RelationshipType } from '../../tools/entity.decorator';
+import { BaseDbEntity } from '../../common/entities/baseDb.entity';
 import { Donation } from '../donation/donation';
+import { EntityRelation, RelationshipType, EntityColumn } from '../../common/decorators/entity.decorator';
 
-@Entity()
+@Entity('donor')
 export class Donor extends BaseDbEntity {
     @EntityColumn()
     name!: string;
@@ -14,7 +15,7 @@ export class Donor extends BaseDbEntity {
     @EntityColumn()
     phone!: string;
 
-    @EntityColumn({ db: { default: false } })
+    @EntityColumn({ db: { default: true } })
     isAnonymous!: boolean;
 
     @EntityRelation({
@@ -24,3 +25,10 @@ export class Donor extends BaseDbEntity {
     })
     donations: Donation[] = [];
 }
+
+export class CreateDonorDTO extends PickType(Donor, [
+    'name',
+    'email',
+    'phone',
+    'isAnonymous'
+] as const) {}

@@ -1,7 +1,8 @@
-import { Entity } from 'typeorm';
-import { BaseDbEntity } from '../../tools/baseDb.entity';
-import { EntityColumn, EntityRelation, RelationshipType } from '../../tools/entity.decorator';
-import { Charity } from '../charity/charity';
+import {Entity} from 'typeorm';
+import {BaseDbEntity} from "../../common/entities/baseDb.entity";
+import {EntityColumn, EntityRelation, RelationshipType} from '../../common/decorators/entity.decorator';
+import {Charity} from '../charity/charity';
+import {PickType} from "@nestjs/swagger";
 
 @Entity()
 export class Testimonial extends BaseDbEntity {
@@ -21,3 +22,5 @@ export class Testimonial extends BaseDbEntity {
     })
     charity!: Charity;
 }
+
+export class CreateTestimonialDTO extends PickType(Testimonial, [] as const) {}

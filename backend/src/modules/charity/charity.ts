@@ -1,11 +1,17 @@
 import {Entity} from 'typeorm';
-import {EntityColumn, OptionalEntityColumn, EntityRelation, RelationshipType} from '../../tools/entity.decorator';
 import {AreaOfFocus} from '../area-of-focus/area-of-focus';
 import {Location} from '../location/location';
 import {Event} from '../event/event';
 import {Campaign} from '../campaign/campaign';
 import {User} from "../user/user";
-import {BaseDbEntity} from "../../tools/baseDb.entity";
+import {BaseDbEntity} from "../../common/entities/baseDb.entity";
+import {PickType} from "@nestjs/swagger";
+import {
+    EntityColumn,
+    EntityRelation,
+    OptionalEntityColumn,
+    RelationshipType
+} from "../../common/decorators/entity.decorator";
 
 @Entity()
 export class Charity extends BaseDbEntity {
@@ -71,3 +77,17 @@ export class Charity extends BaseDbEntity {
     })
     areasOfFocus: AreaOfFocus[] = [];
 }
+
+export class CreateCharityDTO extends PickType(Charity, [
+    'name',
+    'description',
+    'registrationNumber',
+    'email',
+    'phone',
+    'website',
+    'foundedYear',
+    'logoUrl',
+    'status',
+    'location',
+    'areasOfFocus'
+] as const) {}

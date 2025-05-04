@@ -1,6 +1,19 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {UserModule} from "./modules/user/user.module";
+import { AreaOfFocusModule } from './modules/area-of-focus/area-of-focus.module';
+import { CharityModule } from './modules/charity/charity.module';
+import { CampaignModule } from './modules/campaign/campaign.module';
+import { DonationModule } from './modules/donation/donation.module';
+import { EventModule } from './modules/event/event.module';
+import { DonorModule } from './modules/donor/donor.module';
+import { LocationModule } from './modules/location/location.module';
+import { FeatureModule } from './modules/feature/feature.module';
+import { TestimonialModule } from './modules/testimonial/testimonial.module';
+import { TokenModule } from './modules/token/token.module';
+import { UserModule } from './modules/user/user.module';
+import { AuditModule } from './modules/audit/audit.module';
+import { MediaModule } from './modules/media/media.module';
+import { UserCharityRoleModule } from './modules/user-charity-role/user-charity-role.module';
 
 const TypeOrmConfig = TypeOrmModule.forRoot({
     type: 'postgres',
@@ -14,7 +27,21 @@ const TypeOrmConfig = TypeOrmModule.forRoot({
 })
 
 const Modules = [
-    UserModule
+    AreaOfFocusModule,
+    CharityModule,
+    CampaignModule,
+    DonationModule,
+    EventModule,
+    DonorModule,
+    LocationModule,
+    FeatureModule,
+    TestimonialModule,
+    TokenModule,
+    UserModule,
+    AuditModule,
+    MediaModule,
+    UserCharityRoleModule,
+    UserCharity-RoleModule
 ];
 @Module({
     imports: [

@@ -1,9 +1,15 @@
 import { Entity } from 'typeorm';
-import { BaseDbEntity } from '../../tools/baseDb.entity';
-import { EntityColumn, OptionalEntityColumn, EntityRelation, RelationshipType } from '../../tools/entity.decorator';
+import { BaseDbEntity } from '../../common/entities/baseDb.entity';
+import {
+    EntityColumn,
+    EntityRelation,
+    OptionalEntityColumn,
+    RelationshipType
+} from '../../common/decorators/entity.decorator';
 import { Charity } from '../charity/charity';
+import { PickType } from '@nestjs/swagger';
 
-@Entity()
+@Entity('event')
 export class Event extends BaseDbEntity {
     @EntityColumn()
     title: string = '';
@@ -30,3 +36,13 @@ export class Event extends BaseDbEntity {
     })
     charity!: Charity;
 }
+
+export class CreateEventDTO extends PickType(Event, [
+    'title',
+    'description',
+    'startDate',
+    'endDate',
+    'location',
+    'bannerImageUrl',
+    'charity'
+] as const) {}
