@@ -26,7 +26,7 @@ export class CampaignController extends BaseCrudController<Campaign, CreateCampa
         features: [FeaturesEnum.CAN_EDIT_CAMPAIGN],
     })
     @Patch(':charityId/:id')
-    async update(@Param('id') id: string, @Param('charityId') charityId: string, @Body() data: any) {
+    async updateForCharity(@Param('id') id: string, @Param('charityId') charityId: string, @Body() data: any) {
         return this.service.update(+id, data);
     }
 }

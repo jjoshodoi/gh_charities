@@ -4,8 +4,11 @@
     "start": "nest start",
     "build": "nest build",
     "gen:module": "npx ts-node scripts/generate-module-content.ts",
-    "gen:watch": "npx ts-node scripts/watch-and-update-appmodule.ts"
+    "gen:watch": "npx ts-node scripts/watch-and-update-appmodule.ts",
+    "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/shared/ormconfig.ts",
+    "migrate": "pnpm run build && typeorm migration:run -d dist/shared/ormconfig.js"
   },
+  "type": "module",
   "dependencies": {
     "@casl/ability": "6.3.3",
     "@fastify/static": "^7.0.1",
@@ -14,11 +17,14 @@
     "@nestjs/common": "^10.3.2",
     "@nestjs/config": "^3.2.0",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/jwt": "^11.0.0",
     "@nestjs/platform-fastify": "^10.3.2",
     "@nestjs/swagger": "^8.1.1",
     "@nestjs/typeorm": "^10.0.2",
+    "@types/passport-jwt": "^4.0.1",
     "@types/qs": "^6.9.18",
     "axios": "^1.3.6",
+    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "bullmq": "^5.41.5",
     "chokidar": "^4.0.3",
@@ -39,6 +45,7 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "passport-jwt": "^4.0.1",
     "typescript": "^5.1.3"
   }
 }
