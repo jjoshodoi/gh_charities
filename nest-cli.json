@@ -1,0 +1,9 @@
+{
+  "projects": {
+    "backend": {
+      "type": "application",
+      "root": "backend",
+      "sourceRoot": "backend/src"
+    }
+  }
+}

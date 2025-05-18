@@ -4,6 +4,7 @@ import { BaseCrudService } from "../../common/base/base-crud.service";
 import { Repository } from "typeorm";
 import { Controller, Injectable, Module } from "@nestjs/common";
 import { BaseCrudController } from "../../common/base/base-crud.controller";
+import {AreaOfFocus} from "../area-of-focus/area-of-focus";
 
 @Injectable()
 export class CharityService extends BaseCrudService<Charity> {
@@ -20,7 +21,7 @@ export class CharityController extends BaseCrudController<Charity, CreateCharity
 }
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Charity])],
+  imports: [TypeOrmModule.forFeature([Charity, AreaOfFocus])],
   controllers: [CharityController],
   providers: [CharityService],
   exports: [CharityService],

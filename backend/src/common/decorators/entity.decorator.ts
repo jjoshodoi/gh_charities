@@ -66,11 +66,6 @@ export function EntityEnumColumn(opts?: EntityDecorator): ReturnType<typeof appl
 export function EntityRelation(options: RelationshipOptions) {
     const { type, entity, inverseSide, description, joinOptions } = options;
 
-
-    console.log("EntityRelation - Type:", type);
-    console.log("EntityRelation - Entity:", entity);
-    console.log("EntityRelation - InverseSide:", inverseSide);
-
     if (!entity) {
         throw new Error("EntityRelation: 'entity' is undefined. Make sure you're passing the correct class reference.");
     }
@@ -96,8 +91,16 @@ export function EntityRelation(options: RelationshipOptions) {
                 ApiProperty({ description, type: () => entity })
             );
         case RelationshipType.MANY_TO_MANY:
+            // Narrow the inverseSide to valid TypeORM types
+            const resolvedInverseSide =
+                typeof inverseSide === 'function'
+                    ? (object: any) => inverseSide(object)
+                    : typeof inverseSide === 'string'
+                        ? inverseSide
+                        : undefined;
+
             return applyDecorators(
-                ManyToMany(() => entity, inverseSide ? () => inverseSide : undefined, { lazy: true }), // ✅ Removed eager: true
+                ManyToMany(entity, resolvedInverseSide, { lazy: true }), // ✅ Removed eager: true
                 JoinTable(joinOptions),
                 ApiProperty({ description, type: () => [entity] })
             );

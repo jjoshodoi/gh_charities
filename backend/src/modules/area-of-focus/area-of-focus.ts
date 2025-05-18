@@ -24,9 +24,10 @@ export class AreaOfFocus extends BaseDbEntity {
   description?: string;
 
   @EntityRelation({
-    type: RelationshipType.ONE_TO_MANY,
+    type: RelationshipType.MANY_TO_MANY,
     entity: () => Charity,
-    joinOptions: { name: 'areaOfFocus' }
+    inverseSide: (charity: Charity) => charity.areasOfFocus,
+    joinOptions: { name: 'area_of_focus_charity' },
   })
   charities?: Charity[];
 }

@@ -22,22 +22,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "libraries/**/*",
-    "frontend/ui/**/*",
-    "backend/**/*"
-  ],
-  "references": [
-    {
-      "path": "libraries/base"
-    },
-    {
-      "path": "backend"
-    },
-    {
-      "path": "frontend"
-    },
-    {
-      "path": "clients"
-    }
+    "frontend",
+    "backend"
   ]
 }
