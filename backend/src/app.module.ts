@@ -22,6 +22,7 @@ import {ThrottlerModule} from "@nestjs/throttler";
 import {APP_GUARD} from '@nestjs/core';
 import {ThrottlerGuard} from '@nestjs/throttler';
 import {RedisProvider} from "./shared/redis.provider";
+import {EmailModule} from "./complex-modules/email/email.module";
 
 const TypeOrmConfig = TypeOrmModule.forRoot({
     type: 'postgres',
@@ -54,7 +55,7 @@ const Modules = [
     UserCharityRoleModule
 ];
 
-const ComplexModules = [AuthModule];
+const ComplexModules = [AuthModule, EmailModule];
 
 const JWT_MODULE = JwtModule.register({
     secret: process.env.JWT_SECRET,
