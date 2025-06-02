@@ -4,9 +4,11 @@ import {BaseCrudService} from "../../common/base/base-crud.service";
 import {Repository} from "typeorm";
 import {Body, Controller, Injectable, Module, Param, Patch} from "@nestjs/common";
 import {BaseCrudController} from "../../common/base/base-crud.controller";
+import {CrudEntity} from '../../common/decorators/crud-entity.decorator';
 import {UserRole} from "../../enums/user.enum";
 import {FeaturesEnum} from "../../enums/features.enum";
 import {UseCrudGuard} from "../../common/decorators/use-crud-guard.decorator";
+import {Reflector} from "@nestjs/core";
 
 @Injectable()
 export class CampaignService extends BaseCrudService<Campaign> {
@@ -15,10 +17,14 @@ export class CampaignService extends BaseCrudService<Campaign> {
     }
 }
 
+@CrudEntity(Campaign, CreateCampaignDTO)
 @Controller('campaign')
 export class CampaignController extends BaseCrudController<Campaign, CreateCampaignDTO> {
-    constructor(protected readonly service: CampaignService) {
-        super(service);
+    constructor(
+        protected readonly service: CampaignService,
+        protected readonly reflector: Reflector
+    ) {
+        super(service, reflector);
     }
 
     @UseCrudGuard({

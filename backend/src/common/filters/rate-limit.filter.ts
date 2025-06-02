@@ -1,23 +1,17 @@
-import { Catch, ExceptionFilter, HttpException, ArgumentsHost } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
+import { ThrottlerException } from '@nestjs/throttler';
+import { FastifyReply } from 'fastify';
 
-@Catch(HttpException)
+@Catch(ThrottlerException)
 export class RateLimitExceptionFilter implements ExceptionFilter {
-    catch(exception: HttpException, host: ArgumentsHost) {
+    catch(exception: ThrottlerException, host: ArgumentsHost) {
         const ctx = host.switchToHttp();
-        const response = ctx.getResponse<Response>();
-        const request = ctx.getRequest<Request>();
-        const status = exception.getStatus();
+        const response = ctx.getResponse<FastifyReply>();
 
-        if (status === 429) {  // Too Many Requests
-            return response.status(429).json({
-                statusCode: 429,
-                message: 'Too many requests, please try again later.',
-                timestamp: new Date().toISOString(),
-                path: request.url,
-            });
-        }
-
-        response.status(status).json(exception.getResponse());
+        response.status(429).send({
+            statusCode: 429,
+            error: 'Too Many Requests',
+            message: 'You have exceeded the rate limit.',
+        });
     }
 }

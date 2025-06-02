@@ -16,7 +16,6 @@ import {AuthProvider} from "../../enums/auth.enum";
 
 
 @Entity('user')
-
 export class User extends BaseDbEntity {
     @EntityColumn()
     firstName!: string

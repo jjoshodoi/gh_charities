@@ -6,6 +6,7 @@
     "install:all": "pnpm install",
     "dev:frontend": "pnpm --filter frontend dev",
     "dev:backend": "pnpm --filter backend dev",
+    "gen:clients": "pnpm --filter clients generate",
     "build:all": "pnpm --recursive run build",
     "lint:all": "pnpm --recursive run lint"
   },

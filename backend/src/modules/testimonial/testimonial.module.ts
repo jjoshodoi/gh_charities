@@ -4,6 +4,7 @@ import { BaseCrudService } from "../../common/base/base-crud.service";
 import { Repository } from "typeorm";
 import { Controller, Injectable, Module } from "@nestjs/common";
 import { BaseCrudController } from "../../common/base/base-crud.controller";
+import {Reflector} from "@nestjs/core";
 
 @Injectable()
 export class TestimonialService extends BaseCrudService<Testimonial> {
@@ -14,8 +15,11 @@ export class TestimonialService extends BaseCrudService<Testimonial> {
 
 @Controller('testimonial')
 export class TestimonialController extends BaseCrudController<Testimonial, CreateTestimonialDTO> {
-  constructor(protected readonly service: TestimonialService) {
-    super(service);
+  constructor(
+      protected readonly service: TestimonialService,
+      protected readonly reflector: Reflector
+  ) {
+    super(service, reflector);
   }
 }
 

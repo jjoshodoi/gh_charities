@@ -4,6 +4,8 @@ import { BaseCrudService } from "../../common/base/base-crud.service";
 import { Repository } from "typeorm";
 import { Controller, Injectable, Module } from "@nestjs/common";
 import { BaseCrudController } from "../../common/base/base-crud.controller";
+import { CrudEntity } from '../../common/decorators/crud-entity.decorator';
+import {Reflector} from "@nestjs/core";
 
 @Injectable()
 export class EventService extends BaseCrudService<Event> {
@@ -12,10 +14,14 @@ export class EventService extends BaseCrudService<Event> {
   }
 }
 
+@CrudEntity(Event, CreateEventDTO)
 @Controller('event')
 export class EventController extends BaseCrudController<Event, CreateEventDTO> {
-  constructor(protected readonly service: EventService) {
-    super(service);
+  constructor(
+      protected readonly service: EventService,
+      protected readonly reflector: Reflector
+  ) {
+    super(service, reflector);
   }
 }
 

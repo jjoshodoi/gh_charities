@@ -10,6 +10,8 @@ import {createBullBoard} from '@bull-board/api';
 import {FastifyAdapter as BullBoardFastifyAdapter} from '@bull-board/fastify';
 import {BullMQAdapter} from '@bull-board/api/bullMQAdapter';
 import {emailQueue} from './jobs/email/email.queue';
+import { writeFileSync, mkdirSync, existsSync } from 'fs';
+import { join } from 'path';
 
 async function runBullBoard() {
     const serverAdapter = new BullBoardFastifyAdapter();
@@ -48,6 +50,22 @@ async function bootstrap() {
 
     const document = SwaggerModule.createDocument(app, swaggerConfig);
     SwaggerModule.setup('api/docs', app, document);
+
+    const buildSwaggerDir = join(__dirname, '../swagger');
+    const rootSwaggerDir = join(__dirname, '../../swagger');
+
+    const swaggerJson = JSON.stringify(document, null, 2);
+
+// Ensure both directories exist
+    [buildSwaggerDir, rootSwaggerDir].forEach(dir => {
+        if (!existsSync(dir)) {
+            mkdirSync(dir, { recursive: true });
+        }
+    });
+
+// Write to both locations
+    writeFileSync(join(buildSwaggerDir, 'swagger.json'), swaggerJson);
+    writeFileSync(join(rootSwaggerDir, 'swagger.json'), swaggerJson);
 
     app.enableCors({
         origin: corsOrigins,
