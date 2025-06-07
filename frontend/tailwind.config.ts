@@ -1,21 +1,25 @@
 import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 const config: Config = {
-    content: [
-        "./src/pages/**/*.{ts,tsx}",
-        "./src/components/**/*.{ts,tsx}",
-    ],
+    content: ["./src/**/*.{ts,tsx}"],
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Inter', 'sans-serif'],
+                sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
             },
             colors: {
-                primary: '#2C6A4D',       // Dark green
-                accent: '#F6A800',        // Yellow
-                danger: '#D50032',        // Red
+                zinc: colors.zinc,
+                primary: "#2C6A4D",
+                "primary-foreground": "#ffffff",
+                accent: "#F6A800",
+                danger: "#D50032",
             },
         },
+    },
+    corePlugins: {
+        fontFamily: true,
     },
     plugins: [require("tailwindcss-animate")],
 };

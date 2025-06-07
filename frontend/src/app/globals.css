@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply antialiased;
+@layer base {
+    body {
+        @apply bg-zinc-50 text-zinc-900 font-sans antialiased;
+    }
+
+    h1, h2, h3 {
+        @apply font-bold;
+    }
+
+    a {
+        @apply text-primary underline;
+    }
 }

@@ -1,7 +1,8 @@
-import {useEffect, useState} from "react";
-import {Card} from "@/components/ui/card";
-import {Button} from "@/components/ui/button";
+"use client";
 
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface UpdateRequest {
     id: string;
@@ -24,7 +25,8 @@ export default function AdminDashboard() {
                 {requests.map((r) => (
                     <Card key={r.id} className="p-4">
                         <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-semibold">Charity ID: <span className="font-mono">{r.charityId}</span>
+                            <h3 className="font-semibold">
+                                Charity ID: <span className="font-mono">{r.charityId}</span>
                             </h3>
                         </div>
 
