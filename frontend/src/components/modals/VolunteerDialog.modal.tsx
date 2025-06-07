@@ -12,11 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 
 export function VolunteerDialog() {
-    const [name, setName] = useState("");
-    const [interest, setInterest] = useState("");
+    const [open, setOpen] = useState(false);
+    const [form, setForm] = useState({ name: "", message: "" });
     const [submitting, setSubmitting] = useState(false);
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -24,37 +24,36 @@ export function VolunteerDialog() {
         setSubmitting(true);
 
         setTimeout(() => {
-            // toast.success("Thank you for volunteering! We'll be in touch.");
-            setName("");
-            setInterest("");
+            toast.success("Thank you for volunteering!");
+            setOpen(false); // close modal
             setSubmitting(false);
+            setForm({ name: "", message: "" }); // reset form
         }, 1500);
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
                 <Button variant="outline">Become a Volunteer</Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-md">
+            <DialogContent className="sm:max-w-md bg-white border border-zinc-200 rounded-xl shadow-2xl px-6 py-6 space-y-4">
                 <DialogHeader>
                     <DialogTitle>Become a Volunteer</DialogTitle>
-                    <DialogDescription>
-                        Fill out the form and we’ll follow up with details.
-                    </DialogDescription>
+                    <DialogDescription>Fill out this short form and we’ll follow up.</DialogDescription>
                 </DialogHeader>
-
-                <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <Input
                         placeholder="Your Name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        name="name"
+                        value={form.name}
+                        onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
                         required
                     />
                     <Textarea
                         placeholder="Why do you want to volunteer?"
-                        value={interest}
-                        onChange={(e) => setInterest(e.target.value)}
+                        name="message"
+                        value={form.message}
+                        onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
                         rows={4}
                         required
                     />
