@@ -1,9 +1,9 @@
 'use client';
 
-
-import {useParams} from "next/navigation";
+import { useParams } from "next/navigation";
 import Image from "next/image";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
+import { VolunteerDialog } from "@/components/modals/VolunteerDialog.modal";
 
 const mockCharities = [
     {
@@ -17,7 +17,7 @@ const mockCharities = [
         events: [
             { title: "Youth Career Workshop", date: "2025-07-10" },
             { title: "Mentor Training Seminar", date: "2025-08-02" },
-        ]
+        ],
     },
     {
         id: 2,
@@ -28,9 +28,9 @@ const mockCharities = [
         hasVolunteer: false,
         hasDonate: true,
         events: [
-            { title: "Youth Career Workshop", date: "2025-07-10" },
-            { title: "Mentor Training Seminar", date: "2025-08-02" },
-        ]
+            { title: "Food Drive at Peckham", date: "2025-07-18" },
+            { title: "Community Cooking Day", date: "2025-08-11" },
+        ],
     },
     {
         id: 3,
@@ -40,20 +40,9 @@ const mockCharities = [
         imageUrl: "/images/ashanti-health-foundation.png",
         hasVolunteer: true,
         hasDonate: false,
-        events: []
-    },
-    {
-        id: 4,
-        name: "Kumasi Literacy Project",
-        tagline: "Reading for change",
-        description: "Helping rural children access reading material and school resources.",
-        imageUrl: "/images/kumasi-literacy.png",
-        hasVolunteer: true,
-        hasDonate: false,
-        events: []
+        events: [],
     },
 ];
-
 
 export default function CharityDetailPage() {
     const { id } = useParams();
@@ -79,7 +68,7 @@ export default function CharityDetailPage() {
                 <p className="text-lg leading-relaxed">{charity.description}</p>
 
                 <div className="flex gap-4">
-                    {charity.hasVolunteer && <Button variant="outline">Become a Volunteer</Button>}
+                    {charity.hasVolunteer && <VolunteerDialog />}
                     {charity.hasDonate && <Button className="bg-accent text-white hover:bg-accent/90">Donate</Button>}
                 </div>
             </div>
