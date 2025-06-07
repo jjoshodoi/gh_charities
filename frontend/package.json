@@ -1,7 +1,6 @@
 {
   "name": "@gh-charities/frontend",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -40,7 +39,7 @@
     "postcss": "^8.5.4",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",
-    "tailwindcss": "^4.1.8",
+    "tailwindcss": "^3.4.17",
     "tailwindcss-animate": "^1.0.7",
     "turbo": "^2.4.2",
     "typescript": "^5.4.0"
