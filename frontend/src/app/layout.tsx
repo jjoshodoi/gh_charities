@@ -13,6 +13,9 @@ export const metadata = {
 export default function RootLayout({children}: { children: React.ReactNode }) {
     return (
         <html lang="en">
+        <head>
+            <link rel="icon" href="/images/gh-charities-logo-simple.png"/>
+        </head>
         <body
             className={`${inter.variable} font-sans antialiased min-h-screen bg-gradient-to-b from-zinc-100 via-white to-zinc-100 text-zinc-900`}>
         <Navbar/>
